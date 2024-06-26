@@ -7,7 +7,7 @@ import { FaBars, FaTimes } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import { navItems, navItem } from './navItems';
 
-const FloatingNavbar = () => {
+export const FloatingNavbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isSticky, setIsSticky] = useState(false);
 
@@ -39,7 +39,7 @@ const FloatingNavbar = () => {
           <div className="flex items-center">
             <div className="flex-shrink-0">
               <Link href="/">
-                <span className="text-xl font-bold text-gray-800">Logo</span>
+                <span className="text-xl font-bold text-gray-800">Pieter Deane</span>
               </Link>
             </div>
             {/* Desktop menu */}
