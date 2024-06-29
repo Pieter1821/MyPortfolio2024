@@ -10,7 +10,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 
-export const HeroParallax = () => {
+export const HeroParallax = ({
   products,
 }: {
   products: {
@@ -19,6 +19,7 @@ export const HeroParallax = () => {
     thumbnail: string;
   }[];
 }) => {
+  // ... rest of the component code
   const firstRow = products.slice(0, 5);
   const secondRow = products.slice(5, 10);
   const thirdRow = products.slice(10, 15);

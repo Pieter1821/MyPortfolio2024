@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
-import FloatingNavbar from "./components/ui/floating-navbar";
+import { ThemeProvider } from "../components/ui/theme-provider";
+import FloatingNavbar from "../components/ui/floating-navbar";
 
 import { Inter } from "next/font/google";
 
 import "./globals.css";
-import { navItems } from "./components/ui/navItems";
+import { navItems } from "../components/ui/navItems";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,8 +26,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <FloatingNavbar />
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <FloatingNavbar />
+
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

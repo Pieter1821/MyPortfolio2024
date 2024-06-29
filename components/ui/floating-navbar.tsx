@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 import { navItems, navItem } from './navItems';
+import {ModeToggle} from './ModeToggle'
 
 export const FloatingNavbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -50,6 +51,7 @@ export const FloatingNavbar: React.FC = () => {
                     <span className="text-gray-800 hover:text-gray-600 px-3 py-2 rounded-md text-sm font-medium">{item.name}</span>
                   </Link>
                 ))}
+                <ModeToggle/>
               </div>
             </div>
           </div>

@@ -1,6 +1,6 @@
 
 
-import { HeroParallax } from '@/app/components/ui/hero-parrallax'
+import { HeroParallax } from '@/components/ui/hero-parrallax'
 
 export default function Home() {
   return (
