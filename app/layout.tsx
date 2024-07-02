@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
-import { ThemeProvider } from "../components/ui/theme-provider";
-import FloatingNavbar from "../components/ui/floating-navbar";
+
+import Navigation from "../components/ui/navigation";
 
 import { Inter } from "next/font/google";
 
 import "./globals.css";
-import { navItems } from "../components/ui/navItems";
+import {cn} from '../utils/cn'
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -13,6 +14,18 @@ export const metadata: Metadata = {
   title: "Pieter Deane Portfolio",
   description: "Created with Next.js",
 };
+
+const fontHeading = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-heading',
+})
+
+const fontBody = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-body',
+})
 
 
 
@@ -25,17 +38,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <FloatingNavbar />
+      <body  className={cn(
+          'antialiased',
+          fontHeading.variable,
+          fontBody.variable
+        )}>
 
-          {children}
-        </ThemeProvider>
+        <Navigation />
+
+        {children}
+
       </body>
     </html>
   );
