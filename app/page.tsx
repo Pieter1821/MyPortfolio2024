@@ -1,4 +1,4 @@
-
+import { Hero } from "@/components/ui/hero";
 
 
 
@@ -7,7 +7,7 @@ export default function Home() {
     <div className="flex flex-col items-center justify-center w-full h-screen">
 
 
-    <p>homepage</p>
+    <Hero/>
 
     </div>
   );
