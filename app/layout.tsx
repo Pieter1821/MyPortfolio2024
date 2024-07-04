@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import Navigation from "../components/ui/navigation";
+import Footer from "../components/ui/footer"
 
 import { Inter } from "next/font/google";
 
@@ -47,6 +48,7 @@ export default function RootLayout({
         <Navigation />
 
         {children}
+        <Footer/>
 
       </body>
     </html>

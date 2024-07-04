@@ -1,26 +1,13 @@
 "use client"
+import { Spinner } from "@nextui-org/spinner";
 
-import {CircularProgress} from "@nextui-org/react";
-import {useEffect, useState} from "react";
 
 export default function Loading() {
-  const [value, setValue] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setValue((v) => (v >= 100 ? 0 : v + 10));
-    }, 500);
-
-    return () => clearInterval(interval);
-  }, []);
-
   return (
-    <CircularProgress
-      aria-label="Loading..."
-      size="lg"
-      value={value}
-      color="warning"
-      showValueLabel={true}
-    />
+    <div className="flex justify-center items-center h-screen bg-white dark:bg-black">
+
+      <Spinner aria-label="Loading..." />
+
+    </div>
   );
 }
