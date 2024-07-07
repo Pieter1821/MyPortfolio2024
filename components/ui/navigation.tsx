@@ -23,7 +23,7 @@ export default function Navbar() {
       <Link
         key={index}
         href={link.to}
-        className="text-white hover:text-gray-300 transition duration-300 ease-in-out transform hover:-translate-y-1 px-3 py-2 rounded-md"
+        className="text-zinc hover:text-yellow-300 transition duration-300 ease-in-out transform hover:-translate-y-1 px-3 py-2 rounded-md hover:underline"
       >
         {link.label}
       </Link>
@@ -31,13 +31,13 @@ export default function Navbar() {
   );
 
   return (
-    <div className="navbar-container flex justify-center bg-gray-800 bg-opacity-80 fixed top-0 left-0 right-0 z-50 shadow-md">
+    <div className="navbar-container flex justify-center bg-gray-300 bg-opacity-0  left-0 right-0 z-50 shadow-md backdrop-filter backdrop-blur-md sticky top-0">
       <nav className="px-4 py-2 w-full max-w-screen-xl mx-auto">
         <div className="flex justify-between items-center">
           <div className="md:hidden">
             <button
               onClick={toggleMenu}
-              className="text-white hover:text-gray-300 transition duration-300 ease-in-out transform hover:-translate-y-1 text-3xl"
+              className="text-zinc-800 hover:text-yellow-300 transition duration-300 ease-in-out transform hover:-translate-y-1 text-3xl"
               aria-label={isOpen ? 'Close menu' : 'Open menu'}
             >
               {isOpen ? <VscChromeClose className="h-8 w-8" /> : <VscMenu className="h-8 w-8" />}

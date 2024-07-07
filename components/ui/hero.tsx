@@ -11,7 +11,7 @@ export function Hero() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: [20, -5, 0] }}
                 transition={{ duration: 0.5, ease: [0.4, 0.0, 0.2, 1] }}
-                className="text-4xl md:text-6xl lg:text-6xl font-bold text-neutral-700 dark:text-white max-w-4xl leading-relaxed lg:leading-snug text-center mx-auto"
+                className="text-2xl md:text-6xl lg:text-6xl font-bold text-neutral-700 dark:text-white max-w-4xl leading-relaxed lg:leading-snug text-center mx-auto"
             >
                 <span className="block">Hi, I'm Pieter</span>
                 <span className="block mt-2">

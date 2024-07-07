@@ -1,12 +1,15 @@
 const About = () => {
     return (
       <section id="about" className="py-16 bg-white">
-        <div className="container mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold">About Me</h2>
-          <p className="mt-4 text-gray-600">
-            I am a software developer with a passion for building web applications.
-            I have experience in various technologies and love to learn and grow in my field.
-          </p>
+        <div className="container mx-auto max-w-3x1 px-4">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-center">About Me</h2>
+          <p className="text-lg md:text-xl text-gray-700 leading-relaxed mb-8">
+          I am a passionate software developer with a keen eye for crafting
+          intuitive and visually stunning web applications. With a deep
+          understanding of modern technologies and a commitment to continuous
+          learning, I strive to create digital experiences that captivate and
+          delight users.
+        </p>
         </div>
       </section>
     );

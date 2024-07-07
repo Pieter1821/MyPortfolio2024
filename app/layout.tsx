@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 
 import Navigation from "../components/ui/navigation";
-import Footer from "../components/ui/footer"
+import {Footer} from "../components/ui/footer";
+
 
 import { Inter } from "next/font/google";
 
-import "./globals.css";
-import {cn} from '../utils/cn'
+import "./globals.css";	
+import { cn } from '../utils/cn'
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -24,7 +25,6 @@ const fontHeading = Inter({
 
 const fontBody = Inter({
   subsets: ['latin'],
-  display: 'swap',
   variable: '--font-body',
 })
 
@@ -39,17 +39,22 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body  className={cn(
-          'antialiased',
-          fontHeading.variable,
-          fontBody.variable
-        )}>
+      <body className={cn(
+        'antialiased',
+        fontHeading.variable,
+        fontBody.variable
+      )}>
+        <div className="flex flex-col min-h-screen">
 
-        <Navigation />
 
-        {children}
-        <Footer/>
+          <Navigation />
+          <main className="flex-grow flex flex-col">
+          {children}
+            </main>  
 
+          <Footer />
+
+        </div>
       </body>
     </html>
   );

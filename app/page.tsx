@@ -12,8 +12,8 @@ export default function Home() {
     <div className="flex flex-col items-center justify-center w-full min-h-screen">
       <Hero />
       <About />
-      <Skills />
       <Projects />
+      <Skills />
       <Contact />
     </div>
   );
