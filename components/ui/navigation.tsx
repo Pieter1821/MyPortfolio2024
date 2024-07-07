@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { VscChromeClose, VscMenu } from 'react-icons/vsc';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 
 const links = [
   { to: '/', label: 'Home' },
@@ -23,7 +24,7 @@ export default function Navbar() {
       <Link
         key={index}
         href={link.to}
-        className="text-zinc hover:text-yellow-300 transition duration-300 ease-in-out transform hover:-translate-y-1 px-3 py-2 rounded-md hover:underline"
+        className="text-zinc transition duration-300 ease-in-out transform hover:scale-105 px-3 py-2 rounded-md hover:text-yellow-300 hover:underline focus:outline-none focus:ring focus:ring-yellow-300"
       >
         {link.label}
       </Link>
@@ -31,17 +32,31 @@ export default function Navbar() {
   );
 
   return (
-    <div className="navbar-container flex justify-center bg-gray-300 bg-opacity-0  left-0 right-0 z-50 shadow-md backdrop-filter backdrop-blur-md sticky top-0">
+    <div className="navbar-container flex justify-center bg-gray-300 bg-opacity-0  left-0 right-0 z-50 shadow-md backdrop-filter backdrop-blur-md sticky top-0">
       <nav className="px-4 py-2 w-full max-w-screen-xl mx-auto">
         <div className="flex justify-between items-center">
           <div className="md:hidden">
-            <button
+            <motion.button
               onClick={toggleMenu}
-              className="text-zinc-800 hover:text-yellow-300 transition duration-300 ease-in-out transform hover:-translate-y-1 text-3xl"
+              className="text-zinc-800 hover:text-yellow-500 transition duration-300 ease-in-out transform hover:-translate-y-1 text-3xl"
               aria-label={isOpen ? 'Close menu' : 'Open menu'}
+              whileHover={{
+                scale: 1.2,
+                transition: {
+                  duration: 0.3,
+                  ease: 'easeInOut'
+                }
+              }}
+              animate={{
+                rotate: isOpen ? 180 : 0,
+                transition: {
+                  duration: 0.3,
+                  ease: 'easeInOut'
+                }
+              }}
             >
               {isOpen ? <VscChromeClose className="h-8 w-8" /> : <VscMenu className="h-8 w-8" />}
-            </button>
+            </motion.button>
           </div>
           {/* Desktop menu links */}
           <div className="hidden md:flex space-x-10">
