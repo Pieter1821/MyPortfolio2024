@@ -15,7 +15,7 @@ const About = () => {
   };
 
   return (
-    <section id="about" className="py-16 bg-gray-50">
+    <section id="about" className="py-20 ">
       <div className="container mx-auto max-w-4xl px-4">
         <motion.h2 
           className="text-4xl md:text-5xl font-bold mb-8 text-center text-gray-800"

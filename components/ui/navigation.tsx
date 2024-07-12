@@ -24,7 +24,7 @@ export default function Navbar() {
       <Link
         key={index}
         href={link.to}
-        className="text-zinc transition duration-300 ease-in-out transform hover:scale-105 px-3 py-2 rounded-md hover:text-yellow-300 hover:underline focus:outline-none focus:ring focus:ring-yellow-300"
+        className="text-zinc transition duration-300 ease-in-out transform hover:scale-105 px-3 py-2 rounded-md hover:text-yellow-300 hover:underline focus:outline-none "
       >
         {link.label}
       </Link>
@@ -65,11 +65,19 @@ export default function Navbar() {
         </div>
         {/* Mobile menu Links */}
         {isOpen && (
-          <div className="md:hidden mt-2">
+          <motion.div className="md:hidden mt-2"
+          key="content"
+          initial={{scale: 1}}
+          animate={{scale: isOpen? 0.9 : 1}}
+          exit={{scale:1}}
+          transition={{duration: 0.3 , ease: 'easeInOut'}}
+
+          
+          >
             <ul className="flex flex-col items-start space-y-4">
               <NavLinks />
             </ul>
-          </div>
+          </motion.div>
         )}
       </nav>
     </div>

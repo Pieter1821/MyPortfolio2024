@@ -1,36 +1,28 @@
 import type { Metadata } from "next";
 
 import Navigation from "../components/ui/navigation";
-import {Footer} from "../components/ui/footer";
+import { Footer } from "../components/ui/footer";
 
+import { AR_One_Sans } from "next/font/google";
 
-import { Inter } from "next/font/google";
-
-import "./globals.css";	
+import "./globals.css";
 import { cn } from '../utils/cn'
-
-
-const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Pieter Deane Portfolio",
   description: "Created with Next.js",
 };
 
-const fontHeading = Inter({
+const fontHeading = AR_One_Sans({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-heading',
 })
 
-const fontBody = Inter({
+const fontBody = AR_One_Sans({
   subsets: ['latin'],
   variable: '--font-body',
 })
-
-
-
-
 
 export default function RootLayout({
   children,
@@ -45,15 +37,11 @@ export default function RootLayout({
         fontBody.variable
       )}>
         <div className="flex flex-col min-h-screen">
-
-
           <Navigation />
           <main className="flex-grow flex flex-col">
-          {children}
-            </main>  
-
+            {children}
+          </main>
           <Footer />
-
         </div>
       </body>
     </html>
