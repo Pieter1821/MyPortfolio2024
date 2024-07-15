@@ -1,64 +1,88 @@
-'use client';
+"use client"
 
-import { useState } from 'react';
-import EmailTemplate from './email-template';
-import { Resend } from 'resend';
+import React, { useState } from 'react';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
 
-interface FormData {
-  name: string;
-  email: string;
-  message: string;
-}
+const formSchema = z.object({
+  name: z.string().min(2, { message: "Name must be at least 2 characters long" }),
+  email: z.string().email({ message: "Invalid email address" }),
+  message: z.string().min(10, { message: "Message must be at least 10 characters long" })
+});
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+type FormData = z.infer<typeof formSchema>;
 
-const ContactForm = () => {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
+export type ContactFormProps = {
+ 
+
+};
+
+const ContactForm: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [error, setError] = useState('');
+  const [submitSuccess, setSubmitSuccess] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>({
+    resolver: zodResolver(formSchema)
+  });
+
+  const onSubmit: SubmitHandler<FormData> = async (data) => {
     setIsSubmitting(true);
-    setError('');
-
-    try {
-      const data = await resend.emails.send({
-        from: 'your-email@example.com',
-        to: ['recipient@example.com'],
-        subject: `New message from ${name}`,
-        react: <EmailTemplate name={name} email={email} message={message} />,
-      });
-
-      setIsSubmitted(true);
-      setName('');
-      setEmail('');
-      setMessage('');
-    } catch (error) {
-      setError('An error occurred. Please try again later.');
-    } finally {
-      setIsSubmitting(false);
-    }
+    // Simulating API call
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    console.log(data);
+    setIsSubmitting(false);
+    setSubmitSuccess(true);
+    reset();
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mt-8 space-y-4 max-w-lg mx-auto" aria-label="Contact form">
-      {/* Form fields */}
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <div>
-        <button
-          type="submit"
-          disabled={isSubmitting}
-          className="w-full p-5 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
-          aria-label="Send Message"
-        >
-          {isSubmitting ? 'Sending...' : 'Send Message'}
-        </button>
+        <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>
+        <input
+          {...register('name')}
+          type="text"
+          id="name"
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+        />
+        {errors.name && <p className="mt-1 text-sm text-red-600">{errors.name.message}</p>}
       </div>
-      {isSubmitted && <div className="text-green-500">Message sent successfully!</div>}
-      {error && <div className="text-red-500">{error}</div>}
+
+      <div>
+        <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
+        <input
+          {...register('email')}
+          type="email"
+          id="email"
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+        />
+        {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>}
+      </div>
+
+      <div>
+        <label htmlFor="message" className="block text-sm font-medium text-gray-700">Message</label>
+        <textarea
+          {...register('message')}
+          id="message"
+          rows={4}
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+        ></textarea>
+        {errors.message && <p className="mt-1 text-sm text-red-600">{errors.message.message}</p>}
+      </div>
+
+      <button
+        type="submit"
+        disabled={isSubmitting}
+        className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+      >
+        {isSubmitting ? 'Submitting...' : 'Submit'}
+      </button>
+
+      {submitSuccess && (
+        // eslint-disable-next-line react/no-unescaped-entities
+        <p className="mt-2 text-sm text-green-600">Thank you for your message. We'll be in touch soon!</p>
+      )}
     </form>
   );
 };
