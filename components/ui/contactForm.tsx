@@ -1,26 +1,23 @@
 "use client"
+/* eslint-disable react/no-unescaped-entities */
 
 import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import emailjs from '@emailjs/browser';
 
 const formSchema = z.object({
-  name: z.string().min(2, { message: "Name must be at least 2 characters long" }),
+  name: z.string().min(2, { message: "Name must be at least 2 characters long" }).max(50, { message: "Name must not exceed 50 characters" }),
   email: z.string().email({ message: "Invalid email address" }),
-  message: z.string().min(10, { message: "Message must be at least 10 characters long" })
+  message: z.string().min(10, { message: "Message must be at least 10 characters long" }).max(1000, { message: "Message must not exceed 1000 characters" })
 });
 
 type FormData = z.infer<typeof formSchema>;
 
-export type ContactFormProps = {
- 
-
-};
-
 const ContactForm: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>({
     resolver: zodResolver(formSchema)
@@ -28,16 +25,31 @@ const ContactForm: React.FC = () => {
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     setIsSubmitting(true);
-    // Simulating API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    console.log(data);
-    setIsSubmitting(false);
-    setSubmitSuccess(true);
-    reset();
+    setSubmitStatus('idle');
+
+    try {
+      await emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID!,
+        {
+          user_name: data.name,
+          user_email: data.email,
+          user_message: data.message,
+        },
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
+      );
+      setSubmitStatus('success');
+      reset();
+    } catch (error) {
+      console.error('Failed to send email:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 max-w-lg mx-auto">
       <div>
         <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>
         <input
@@ -74,14 +86,16 @@ const ContactForm: React.FC = () => {
       <button
         type="submit"
         disabled={isSubmitting}
-        className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        className="w-full inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50"
       >
         {isSubmitting ? 'Submitting...' : 'Submit'}
       </button>
 
-      {submitSuccess && (
-        // eslint-disable-next-line react/no-unescaped-entities
+      {submitStatus === 'success' && (
         <p className="mt-2 text-sm text-green-600">Thank you for your message. We'll be in touch soon!</p>
+      )}
+      {submitStatus === 'error' && (
+        <p className="mt-2 text-sm text-red-600">Failed to send email. Please try again later.</p>
       )}
     </form>
   );

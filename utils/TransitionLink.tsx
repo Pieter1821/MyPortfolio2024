@@ -9,6 +9,10 @@ interface TransitionLinkProps extends LinkProps {
   className?: string;
 }
 
+function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 export const TransitionLink: React.FC<TransitionLinkProps> = ({
   children,
   href,
@@ -16,13 +20,26 @@ export const TransitionLink: React.FC<TransitionLinkProps> = ({
 }) => {
   const router = useRouter();
 
-  const handleTransition = async (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+  const handleTransition = async(e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    // TODO Run some exit animation 
-    // sleep for some time
+    const body = document.querySelector('body');
+
+    body?.classList.add('page-transition');
+
+    await sleep(200);
+
     router.push(href);
-    // TODO Run some enter animation
-  };
+
+    await sleep(200);
+
+    body?.classList.remove('page-transition');
+
+
+  }
+
+
+
+
 
   return (
     <Link onClick={handleTransition} href={href} {...props}>
