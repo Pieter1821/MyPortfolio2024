@@ -41,6 +41,7 @@ export default function RootLayout({
           <Navigation />
           <main className="flex-grow flex flex-col">
             {children}
+            <SpeedInsights />
           </main>
           <Footer />
         </div>
