@@ -9,7 +9,7 @@ import Contact from "./contact/page";
 export default function Home() {
   return (
 
-    <div className="flex flex-col items-center justify-center w-full min-h-screen">
+    <div className="flex flex-col items-center justify-center w-100 min-h-screen">
       <Hero />
       <About />
       <Projects />

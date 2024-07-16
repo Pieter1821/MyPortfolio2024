@@ -6,9 +6,9 @@ import {SkillList} from '@/components/ui/skill-list';
 const Skills = () => {
   const skillCategories = [
     { title: 'Frontend', icon: FaCode, skills: ['HTML', 'CSS', 'JavaScript', 'React', 'Tailwind'] },
-    { title: 'Backend', icon: FaServer, skills: ['Node.js', 'Express', 'MongoDB'] },
+    { title: 'Backend', icon: FaServer, skills: ['Node.js'] },
     { title: 'Frameworks', icon: FaTools, skills: ['Next.js', 'TypeScript'] },
-    { title: 'Additional Tools', icon: FaTools, skills: ['Git', 'Jest', 'Webpack'] },
+    { title: 'Additional Tools', icon: FaTools, skills: ['Git & Github', 'Jest'] },
     { title: 'Soft Skills', icon: FaUserFriends, skills: ['Problem-Solving', 'Teamwork', 'Communication', 'Adaptability', 'Time Management'] },
   ];
 

@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { VscChromeClose, VscMenu } from 'react-icons/vsc';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { TransitionLink } from '@/utils/TransitionLink';
+
 
 const links = [
   { to: '/', label: 'Home' },
@@ -21,13 +21,13 @@ export default function Navbar() {
   };
   const NavLinks = () => (
     links.map((link, index) => (
-      <TransitionLink
+      <Link
         key={index}
         href={link.to}
         className="text-zinc transition duration-300 ease-in-out transform hover:scale-105 px-3 py-2 rounded-md hover:text-yellow-300 hover:underline focus:outline-none"
       >
         {link.label}
-      </TransitionLink>
+      </Link>
     ))
   );
 
