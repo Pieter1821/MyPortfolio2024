@@ -1,10 +1,10 @@
-/* eslint-disable react/no-unescaped-entities */
+
 "use client";
 import { motion } from "framer-motion";
 import { HeroHighlight, Highlight } from "@/components/ui/hero-highlight";
 import Link from "next/link";
 
-export function Hero() {
+export default function Hero() {
     return (
         <HeroHighlight>
             <motion.h1

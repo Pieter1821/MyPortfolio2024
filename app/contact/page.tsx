@@ -2,7 +2,7 @@
 import ContactForm from "@/components/ui/contactForm";
 
 
-export default async function Contact() {
+export default function Contact() {
   return (
     <section id="contact" className="py-20 h-screen">
       <div className="container mx-auto text-center">
