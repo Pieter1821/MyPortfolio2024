@@ -20,9 +20,9 @@ export default function Navbar() {
     setIsOpen(!isOpen);
   };
   const NavLinks = () => (
-    links.map((link, index) => (
+    links.map((link) => (
       <Link
-        key={index}
+        key={link.to}
         href={link.to}
         className="text-zinc transition duration-300 ease-in-out transform hover:scale-105 px-3 py-2 rounded-md hover:text-yellow-300 hover:underline focus:outline-none"
       >
